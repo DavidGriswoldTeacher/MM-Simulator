@@ -23,6 +23,13 @@
       vertical-align: middle;
       color: white;
     }
+
+    footer {
+      font-size: 0.8em;
+      border-top: 1px solid black;
+      margin-top: 5em;
+      padding-top: 1em;
+    }
   </style>
   <body>
     <div id="controls">
@@ -35,7 +42,7 @@
         max="100"
         value="20"
       /><br />
-      <button id="simulateButton" onclick="sim()">Press to simulate</button>
+      <button id="simulateButton" onclick="sim()">Press for a new set</button>
     </div>
     <table id="mms">
       <tr>
@@ -67,41 +74,65 @@
         <td>m</td>
       </tr>
     </table>
-
+    <footer>
+      <a href="https://github.com/DavidGriswoldTeacher/MM-Simulator"
+        >See the code or leave bug reports!</a
+      >
+    </footer>
     <script type="text/javascript">
+      var vals = [];
+      updateRows();
+
       function updateRows() {
         var table = document.querySelector("#mms");
         var input = document.querySelector("#numcandies");
         table.innerHTML = "";
         var n = input.value;
-        for (var r = 1; r <= n / 5 + 1; r++) {
+        var k = n >= 50 ? 10 : 5;
+        for (var r = 1; r <= n / k + 1; r++) {
           var tr = document.createElement("tr");
-          for (var c = 1; c <= 5 && (r - 1) * 5 + c <= n; c++) {
+          for (var c = 1; c <= k && (r - 1) * k + c <= n; c++) {
             var td = document.createElement("td");
             td.innerHTML = "m";
             tr.appendChild(td);
           }
           table.appendChild(tr);
         }
+        updateView();
       }
-      function sim() {
+
+      function updateView() {
         var allTDs = document.querySelectorAll("#mms td");
+        var n = 0;
         allTDs.forEach((cell) => {
-          var rand = Math.random();
-          if (rand < 0.24) {
+          var val;
+          if (vals[n]) {
+            val = vals[n];
+          } else {
+            val = vals[n] = Math.random();
+          }
+          if (val < 0.24) {
             cell.style.backgroundColor = "#1160F0";
-          } else if (rand < 0.44) {
+          } else if (val < 0.44) {
             cell.style.backgroundColor = "#FB5A00";
-          } else if (rand < 0.6) {
+          } else if (val < 0.6) {
             cell.style.backgroundColor = "#00CD2A";
-          } else if (rand < 0.74) {
+          } else if (val < 0.74) {
             cell.style.backgroundColor = "#FFE100";
-          } else if (rand < 0.87) {
+          } else if (val < 0.87) {
             cell.style.backgroundColor = "#D20218";
           } else {
             cell.style.backgroundColor = "#54220B";
           }
+          n++;
         });
+      }
+
+      function sim() {
+        for (var i = 0; i < vals.length; i++) {
+          vals[i] = Math.random();
+        }
+        updateView();
       }
     </script>
   </body>

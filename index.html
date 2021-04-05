@@ -1,0 +1,85 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M&M simulator</title>
+  </head>
+
+  <style>
+    #simulateButton {
+      margin-bottom: 20px;
+    }
+    #mms td {
+      box-sizing: border-box;
+      width: 50px;
+      height: 50px;
+      border: 1px solid black;
+      border-radius: 25px;
+      text-align: center;
+      vertical-align: middle;
+      color: white;
+    }
+  </style>
+  <body>
+    <button id="simulateButton" onclick="sim()">Press to simulate</button>
+    <table id="mms">
+      <tr>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+      </tr>
+      <tr>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+      </tr>
+      <tr>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+      </tr>
+      <tr>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+      </tr>
+      <tr>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+        <td>m</td>
+      </tr>
+    </table>
+
+    <script type="text/javascript">
+      var allTDs = document.querySelectorAll("#mms td");
+      function sim() {
+        allTDs.forEach((cell) => {
+          var rand = Math.random();
+          if (rand < 0.24) {
+            cell.style.backgroundColor = "#1160F0";
+          } else if (rand < 0.44) {
+            cell.style.backgroundColor = "#FB5A00";
+          } else if (rand < 0.6) {
+            cell.style.backgroundColor = "#00CD2A";
+          } else if (rand < 0.74) {
+            cell.style.backgroundColor = "#FFE100";
+          } else if (rand < 0.87) {
+            cell.style.backgroundColor = "#D20218";
+          } else {
+            cell.style.backgroundColor = "#54220B";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

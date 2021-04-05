@@ -6,8 +6,12 @@
   </head>
 
   <style>
-    #simulateButton {
+    #controls {
       margin-bottom: 20px;
+    }
+
+    #simulateButton {
+      margin-top: 10px;
     }
     #mms td {
       box-sizing: border-box;
@@ -21,15 +25,19 @@
     }
   </style>
   <body>
-    <button id="simulateButton" onclick="sim()">Press to simulate</button>
+    <div id="controls">
+      <label for="numcandies"># of candies</label>
+      <input
+        id="numcandies"
+        onchange="updateRows()"
+        type="number"
+        min="1"
+        max="100"
+        value="20"
+      /><br />
+      <button id="simulateButton" onclick="sim()">Press to simulate</button>
+    </div>
     <table id="mms">
-      <tr>
-        <td>m</td>
-        <td>m</td>
-        <td>m</td>
-        <td>m</td>
-        <td>m</td>
-      </tr>
       <tr>
         <td>m</td>
         <td>m</td>
@@ -61,8 +69,23 @@
     </table>
 
     <script type="text/javascript">
-      var allTDs = document.querySelectorAll("#mms td");
+      function updateRows() {
+        var table = document.querySelector("#mms");
+        var input = document.querySelector("#numcandies");
+        table.innerHTML = "";
+        var n = input.value;
+        for (var r = 1; r <= n / 5 + 1; r++) {
+          var tr = document.createElement("tr");
+          for (var c = 1; c <= 5 && (r - 1) * 5 + c <= n; c++) {
+            var td = document.createElement("td");
+            td.innerHTML = "m";
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+      }
       function sim() {
+        var allTDs = document.querySelectorAll("#mms td");
         allTDs.forEach((cell) => {
           var rand = Math.random();
           if (rand < 0.24) {
